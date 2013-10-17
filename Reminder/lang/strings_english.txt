@@ -1,0 +1,50 @@
+<?php
+$s_plugin_Reminder_plugin_title 		= "Mantis Send Reminder E-Mail" ;
+$s_plugin_Reminder_config 				= "Configuration" ;
+$s_plugin_Reminder_bug_status			= "Only select issues with status" ;
+$s_plugin_Reminder_mail_subject			= "Body of the Reminder message" ;
+$s_plugin_Reminder_sender				= "E-mail address of sender" ;
+$s_plugin_Reminder_days_treshold		= "Number of days before due date";
+$s_plugin_Reminder_update_config		= 'Update definition';
+$s_plugin_Reminder_store_as_note		= "Store reminder as note (only for handler)";
+$s_plugin_Reminder_store_enabled 		= "On";
+$s_plugin_Reminder_store_disabled 		= "Off";
+$s_plugin_Reminder_ignore_unset			= "Ignore issues with Due date not set"; 
+$s_plugin_Reminder_group_issues			= "Group issues";
+$s_plugin_Reminder_group_project		= "Seperate grouped mail by project";
+$s_plugin_Reminder_manager_overview		= "Generate manager mail by project";
+$s_plugin_Reminder_handler				= "Generate handler mail";
+$s_plugin_Reminder_group_subject		= "Subject for Incident Managers";
+$s_plugin_Reminder_group_body1			= "Start body grouped mail";
+$s_plugin_Reminder_group_body2			= "End body grouped mail";
+$s_plugin_Reminder_project_name			= "Select project";
+$s_plugin_Reminder_due_overview_link 	= "Due Overview";
+$s_plugin_Reminder_overdue_date			= 'Viewing Due date';
+$s_plugin_Reminder_project_name			= "Set Project";
+$s_plugin_Reminder_due_overview_link 	= "Due Overview";
+$s_plugin_Reminder_short_date_format 	= "bla bla";
+$s_plugin_Reminder_overdue_date 		= 'Viewing Due date';
+$s_plugin_Reminder_linked_projects 		= "Activated Projects";
+$s_plugin_Reminder_projects_title 		= "Project Titles";
+$s_plugin_Reminder_activate_projects_button = "Activate Projects";
+$s_plugin_Reminder_Reminder_settings    = 'Reminder settings';
+$s_plugin_Reminder_link_the_current_project    = 'Linked project';
+$s_plugin_Reminder_selected			    = 'Selected';
+$s_plugin_Reminder_selected_projects_title = "Assigned Project Titles";
+$s_plugin_Reminder_remove_link 			= "Remove";
+$s_plugin_Reminder_REM_id				= "Issue Id";
+$s_plugin_Reminder_REM_summary			= "Summary";
+$s_plugin_Reminder_REM_realname			= "Name";
+$s_plugin_Reminder_REM_username 		= "Assigned To";
+$s_plugin_Reminder_REM_email	    	= "Email Address";
+$s_plugin_Reminder_operation_successful = "Operation_successful";
+$s_plugin_Reminder_proceed 				= "Proceed";
+$s_plugin_Reminder_project_name			= "Project Name";
+
+# Reminder_proj_delete.php
+$s_plugin_Reminder_project_deleted_msg = 'Project successfully removed...';
+$s_plugin_Reminder_project_delete_msg = 'Are you sure you want to delete the link of this project from the Reminder?';
+$s_plugin_Reminder_project_delete_button = 'Delete Project';
+
+$s_plugin_Reminder_reminder_url = ' To send reminder mail for the users Please copy the url address to the cron';
+$s_plugin_Reminder_reminder_url_one = '1.  ';

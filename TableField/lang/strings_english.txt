@@ -1,0 +1,22 @@
+<?php
+
+$s_plugin_TableField_table = "Table";
+$s_plugin_TableField_item_list_link = 'Item List'; 
+$s_plugin_TableField_viewing_items_title = 'Viewing Items';
+# This are column headers 
+$s_plugin_TableField_col_name= 'Name';
+$s_plugin_TableField_col_unit= 'Unit';
+$s_plugin_TableField_col_supplier= 'Supplier';
+$s_plugin_TableField_col_quantity= 'Quantity';
+$s_plugin_TableField_col_unit_price= 'Unit Price';
+$s_plugin_TableField_col_currency= 'Currency';
+$s_plugin_TableField_col_bug_id= 'ID';
+# item_all_inc.php
+$s_plugin_TableField_prev = 'Prev';
+$s_plugin_TableField_next = 'Next';
+$s_plugin_TableField_first = 'First';
+$s_plugin_TableField_last = 'Last';
+$s_plugin_TableField_start_date = 'Start Date';
+$s_plugin_TableField_end_date = 'End Date';
+$s_plugin_TableField_use_date_filters = 'Use Date Filters';
+?>

@@ -1,0 +1,514 @@
+<?php
+
+
+## replace issue by service request
+
+$s_plugin_Terminology_SR_actiongroup_bugs = 'Selected Service Requests';
+$s_plugin_Terminology_SR_actiongroup_error_issue_is_readonly = 'Service Request is readonly.';
+$s_plugin_Terminology_SR_move_bugs = 'Move Service Requests';
+$s_plugin_Terminology_SR_view_submitted_bug_link = 'View Submitted Service Request %1$s';
+$s_plugin_Terminology_SR_bug_history = 'Service Request History';
+$s_plugin_Terminology_SR_bug_monitor = 'Service Request Monitored';
+$s_plugin_Terminology_SR_bug_end_monitor = 'Service Request End Monitor';
+$s_plugin_Terminology_SR_new_bug = 'New Service Request';
+$s_plugin_Terminology_SR_bug_deleted = 'Service Request Deleted';
+$s_plugin_Terminology_SR_bug_actiongroup_status = 'This service request cannot be changed to the requested status';
+$s_plugin_Terminology_SR_bug_actiongroup_category = 'This service request cannot be changed to the requested category';
+$s_plugin_Terminology_SR_close_bugs_conf_msg = 'Are you sure you wish to close these service requests?';
+$s_plugin_Terminology_SR_delete_bugs_conf_msg = 'Are you sure you wish to delete these service requests?';
+$s_plugin_Terminology_SR_move_bugs_conf_msg = 'Move service requests to';
+$s_plugin_Terminology_SR_copy_bugs_conf_msg = 'Copy service requests to';
+$s_plugin_Terminology_SR_assign_bugs_conf_msg = 'Assign service requests to';
+$s_plugin_Terminology_SR_resolve_bugs_conf_msg = 'Choose service requests resolution';
+$s_plugin_Terminology_SR_priority_bugs_conf_msg = 'Choose service requests priority';
+$s_plugin_Terminology_SR_status_bugs_conf_msg = 'Choose service requests status';
+$s_plugin_Terminology_SR_view_status_bugs_conf_msg = 'Choose service requests view status';
+$s_plugin_Terminology_SR_category_bugs_conf_msg = 'Choose service requests category';
+$s_plugin_Terminology_SR_set_sticky_bugs_conf_msg = 'Are you sure you wish to set/unset these service requests sticky?';
+$s_plugin_Terminology_SR_close_group_bugs_button = 'Close Service Requests';
+$s_plugin_Terminology_SR_delete_group_bugs_button = 'Delete Service Requests';
+$s_plugin_Terminology_SR_move_group_bugs_button = 'Move Service Requests';
+$s_plugin_Terminology_SR_copy_group_bugs_button = 'Copy Service Requests';
+$s_plugin_Terminology_SR_assign_group_bugs_button = 'Assign Service Requests';
+$s_plugin_Terminology_SR_resolve_group_bugs_button = 'Resolve Service Requests';
+$s_plugin_Terminology_SR_update_severity_msg = 'Choose service request severity';
+# print_all_bug_page.php : display selected service requests
+/*
+$MANTIS_ERROR[ERROR_HANDLER_ACCESS_TOO_LOW] = 'Service Request handler does not have sufficient access rights to handle service request at this status.';
+$MANTIS_ERROR[ERROR_BUG_NOT_FOUND] = 'Service Request %1$d not found.';
+$MANTIS_ERROR[ERROR_BUG_DUPLICATE_SELF] = 'You cannot set an service request as a duplicate of itself.';
+$MANTIS_ERROR[ERROR_BUG_REVISION_NOT_FOUND] = 'Service Request revision not found.';
+$MANTIS_ERROR[ERROR_SPONSORSHIP_HANDLER_ACCESS_LEVEL_TOO_LOW] = 'Handler does not have the required access level to handle sponsored service requests.';
+$MANTIS_ERROR[ERROR_SPONSORSHIP_ASSIGNER_ACCESS_LEVEL_TOO_LOW] = 'Access Denied: Assigning sponsored service requests requires higher access level.';
+$MANTIS_ERROR[ERROR_BUG_READ_ONLY_ACTION_DENIED] = 'The action cannot be performed because service request "%1$d" is read-only.';
+$MANTIS_ERROR[ERROR_RELATIONSHIP_ALREADY_EXISTS] = 'There is already a relationship between these two service requests.';
+$MANTIS_ERROR[ERROR_RELATIONSHIP_ACCESS_LEVEL_TO_DEST_BUG_TOO_LOW] = 'Access denied: The service request %1$d requires higher access level.';
+$MANTIS_ERROR[ERROR_RELATIONSHIP_SAME_BUG] = 'An service request cannot be related to itself.';
+$MANTIS_ERROR[ERROR_TAG_NOT_ATTACHED] = 'That tag is not attached to that service request.';
+$MANTIS_ERROR[ERROR_TAG_ALREADY_ATTACHED] = 'That tag already attached to that service request.';
+*/
+$s_plugin_Terminology_SR_issue_status_percentage = 'Service Request Status Percentage';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_new = 'The following service request is now in status NEW (again)';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_feedback = 'The following service request requires your FEEDBACK.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_acknowledged = 'The following service request has been ACKNOWLEDGED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_confirmed = 'The following service request has been CONFIRMED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_assigned = 'The following service request has been ASSIGNED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_resolved = 'The following service request has been RESOLVED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_closed = 'The following service request has been CLOSED';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bug_submitted = 'The following service request has been SUBMITTED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bug_assigned = 'The following service request has been ASSIGNED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bug_reopened = 'The following service request has been REOPENED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bug_deleted = 'The following service request has been DELETED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bug_updated = 'The following service request has been UPDATED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_sponsorship_added = 'The following service request has been SPONSORED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_sponsorship_updated = 'A sponsorship of the following service request was modified.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_sponsorship_deleted = 'A sponsorship of the following service request was withdrawn.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_bugnote_submitted = 'A NOTE has been added to this service request.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_duplicate_of_relationship_added = 'The following service request has been set as DUPLICATE OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_has_duplicate_relationship_added = 'The service request %1$s has been set as DUPLICATE OF the following service request.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_related_to_relationship_added = 'The following service request has been set as RELATED TO service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_dependant_on_relationship_added = 'The following service request has been set PARENT OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_blocks_relationship_added = 'The following service request has been set CHILD OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_duplicate_of_relationship_deleted = 'The following service request has been UNset as DUPLICATE OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_has_duplicate_relationship_deleted = 'The service request %1$s has been removed as a DUPLICATE OF the following service request.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_related_to_relationship_deleted = 'The following service request has been marked as UNRELATED TO service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_dependant_on_relationship_deleted = 'The following service request has been removed as the PARENT OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_blocks_relationship_deleted = 'The following service request has been removed as the CHILD OF service request %1$s.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_relationship_child_resolved = 'The RELATED service request %1$s has been RESOLVED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_relationship_child_closed = 'The RELATED service request %1$s has been CLOSED.';
+$s_plugin_Terminology_SR_email_notification_title_for_action_monitor = 'Service Request %1$s is now monitored by user %2$s.';
+$s_plugin_Terminology_SR_email_bug = 'Service Request ID';
+$s_plugin_Terminology_SR_no_sponsored = 'No sponsored service requests Assigned To yourself were found.';
+$s_plugin_Terminology_SR_own_sponsored = 'Service Requests You have Sponsored:';
+$s_plugin_Terminology_SR_issues_handled = 'Sponsored Service Requests You Have Been Assigned To:';
+$s_plugin_Terminology_SR_no_own_sponsored = 'You have not sponsored any service requests.';
+$s_plugin_Terminology_SR_multiple_projects = 'The service requests you have selected are from different projects. The parameters below reflect the settings for all projects. If this is incorrect, please retry your change with a smaller number of service requests selected.';
+$s_plugin_Terminology_SR_bug_assign_msg = 'Service Request has been successfully assigned...';
+$s_plugin_Terminology_SR_new_bug_title = 'New Service Request';
+$s_plugin_Terminology_SR_feedback_bug_title = 'Request Feedback on Service Request';
+$s_plugin_Terminology_SR_acknowledged_bug_title = 'Acknowledge Service Request';
+$s_plugin_Terminology_SR_confirmed_bug_title = 'Confirm Service Request';
+$s_plugin_Terminology_SR_assigned_bug_title = 'Assign Service Request';
+$s_plugin_Terminology_SR_new_bug_button = 'New Service Request';
+$s_plugin_Terminology_SR_acknowledged_bug_button = 'Acknowledge Service Request';
+$s_plugin_Terminology_SR_confirmed_bug_button = 'Confirm Service Request';
+$s_plugin_Terminology_SR_assigned_bug_button = 'Assign Service Request';
+$s_plugin_Terminology_SR_bug_close_msg = 'Service Request has been closed...';
+$s_plugin_Terminology_SR_closed_bug_title = 'Close Service Request';
+$s_plugin_Terminology_SR_bug_deleted_msg = 'Service Request has been deleted...';
+$s_plugin_Terminology_SR_delete_bug_sure_msg = 'Are you sure you wish to delete this service request?';
+$s_plugin_Terminology_SR_bug_reopened_msg = 'Service Request has been reopened...';
+$s_plugin_Terminology_SR_reopen_add_bugnote_title = 'Add Note Reason For Reopening Service Request';
+$s_plugin_Terminology_SR_bugnote_add_reopen_button = 'Add Note and Reopen Service Request';
+$s_plugin_Terminology_SR_resolved_bug_title = 'Resolve Service Request';
+$s_plugin_Terminology_SR_resolved_bug_button = 'Resolve Service Request';
+$s_plugin_Terminology_SR_bug_resolved_msg = 'Service Request has been resolved. Enter note below...';
+$s_plugin_Terminology_SR_resolve_add_bugnote_title = 'Add Note Reason For Resolving Service Request';
+$s_plugin_Terminology_SR_reminder_explain = 'This note will be sent to the recipients listed requesting feedback on this service request.';
+$s_plugin_Terminology_SR_reminder_monitor = 'These recipients will also begin monitoring the service request. They can unsubscribe using the Unmonitor button.';
+$s_plugin_Terminology_SR_reminder_store = 'This note will be stored with the service request.';
+$s_plugin_Terminology_SR_confirm_sponsorship = 'Please confirm you want to sponsor service request %1$d for %2$s.';
+$s_plugin_Terminology_SR_bug_updated_msg = 'Service Request has been successfully updated...';
+$s_plugin_Terminology_SR_back_to_bug_link = 'Back To Service Request';
+$s_plugin_Terminology_SR_updating_bug_advanced_title = 'Updating Service Request Information';
+$s_plugin_Terminology_SR_sticky_issue = 'Sticky Service Request';
+$s_plugin_Terminology_SR_updating_bug_simple_title = 'Updating Service Request Information';
+$s_plugin_Terminology_SR_back_to_issue = 'Back to Service Request';
+$s_plugin_Terminology_SR_confirm_revision_drop = 'Are you sure you want to drop this service request revision?';
+$s_plugin_Terminology_SR_no_bugnotes_msg = 'There are no notes attached to this service request.';
+$s_plugin_Terminology_SR_closed_bug_button = 'Close Service Request';
+$s_plugin_Terminology_SR_login_page_info = 'Welcome to the Service Request Tracker.';
+$s_plugin_Terminology_SR_issue_reporter = 'User who reported service request';
+$s_plugin_Terminology_SR_issue_handler = 'User who is handling the service request';
+$s_plugin_Terminology_SR_users_added_bugnote = 'Users who added Service Request Notes';
+$s_plugin_Terminology_SR_unreachable = 'You cannot move an service request into this status';
+$s_plugin_Terminology_SR_no_exit = 'You cannot move an service request out of this status';
+$s_plugin_Terminology_SR_desc_bug_submit_status = 'Status to which a new service request is set';
+$s_plugin_Terminology_SR_desc_bug_reopen_status = 'Status to which reopened service request are set';
+$s_plugin_Terminology_SR_desc_bug_resolved_status_threshold = 'Status where an service request is considered resolved';
+$s_plugin_Terminology_SR_desc_bug_closed_status_threshold = 'Status where an service request is considered closed';
+$s_plugin_Terminology_SR_assign_issue = 'Assign an service request';
+$s_plugin_Terminology_SR_allow_close_immediate = 'Allow service request to be closed on Resolve';
+$s_plugin_Terminology_SR_allow_reporter_close = 'Allow Reporter to close Service Request';
+$s_plugin_Terminology_SR_allow_reporter_reopen = 'Allow Reporter to re-open Service Request';
+$s_plugin_Terminology_SR_allow_user_edit = 'Allow user to edit their own service request notes';
+$s_plugin_Terminology_SR_limit_access = 'Limit reporter\'s access to their own service request';
+$s_plugin_Terminology_SR_submit_status = 'Status to which a new service request is set';
+$s_plugin_Terminology_SR_assigned_status = 'Status to set auto-assigned service request to';
+$s_plugin_Terminology_SR_resolved_status = 'Status where an service request is considered resolved';
+$s_plugin_Terminology_SR_readonly_status = 'Status where an service request becomes read only';
+$s_plugin_Terminology_SR_reopen_status = 'Status to which a reopened service request is set';
+$s_plugin_Terminology_SR_reopen_resolution = 'Resolution to which a reopened service request is set';
+$s_plugin_Terminology_SR_category_delete_sure_msg = 'Are you sure you want to delete this category?<br />Category "%1$s" contains %2$d service requests.';
+$s_plugin_Terminology_SR_project_delete_msg = 'Are you sure you want to delete this project and all attached service request reports?';
+$s_plugin_Terminology_SR_view_bugs_link = 'View Service Requests';
+$s_plugin_Terminology_SR_report_bug_link = 'Enter Service Request';
+$s_plugin_Terminology_SR_my_view_title_my_comments = 'Service Requests I Have Commented On';
+$s_plugin_Terminology_SR_report_more_bugs = 'Report More Service Requests';
+$s_plugin_Terminology_SR_check_report_more_bugs = 'check to report more service requests';
+$s_plugin_Terminology_SR_time_stats = 'Time Stats For Resolved Service Requests (days)';
+$s_plugin_Terminology_SR_longest_open_bug = 'Longest open service request';
+$s_plugin_Terminology_SR_viewing_bugs_title = 'Viewing Service Requests';
+$s_plugin_Terminology_SR_sticky = 'Show Sticky Service Requests';
+$s_plugin_Terminology_SR_issue_id = 'Service Request #';
+$s_plugin_Terminology_SR_bug_view_title = 'View Service Request Details';
+$s_plugin_Terminology_SR_no_users_monitoring_bug = 'There are no users monitoring this service request.';
+$s_plugin_Terminology_SR_users_monitoring_bug = 'Users monitoring this service request';
+$s_plugin_Terminology_SR_no_users_sponsoring_bug = 'There are no users sponsoring this service request.';
+$s_plugin_Terminology_SR_users_sponsoring_bug = 'Users sponsoring this service request';
+$s_plugin_Terminology_SR_custom_field_display_report = 'Display When Reporting Service Requests';
+$s_plugin_Terminology_SR_custom_field_display_update = 'Display When Updating Service Requests';
+$s_plugin_Terminology_SR_custom_field_display_resolved = 'Display When Resolving Service Requests';
+$s_plugin_Terminology_SR_custom_field_display_closed = 'Display When Closing Service Requests';
+# URL explaining the process of sponsoring an service request. This is defined here rather than
+$s_plugin_Terminology_SR_resolved_progress = '%1$d of %2$d service request(s) resolved. Progress (%3$d%%).';
+$s_plugin_Terminology_SR_bug = 'issue';
+$s_plugin_Terminology_SR_bugs = 'issues';
+$s_plugin_Terminology_SR_this_bug = 'Current service request';
+$s_plugin_Terminology_SR_replace_relationship_sure_msg = 'There is already a relationship between the two service requests. Are you sure you want to replace it?';
+$s_plugin_Terminology_SR_relationship_with_parent = 'Relationship with the parent service request';
+$s_plugin_Terminology_SR_relationship_warning_blocking_bugs_not_resolved = 'Not all the children of this service request are yet resolved or closed.';
+$s_plugin_Terminology_SR_relationship_warning_blocking_bugs_not_resolved_2 = '<b>Attention:</b> Not all the children of this service request are yet resolved or closed.<br />Before <b>resolving/closing</b> a parent service request, all the service requests related as child with this one should be resolved or closed.';
+$s_plugin_Terminology_SR_bug_cloned_to = 'Service Request cloned';
+$s_plugin_Terminology_SR_bug_created_from = 'Service Request generated from';
+$s_plugin_Terminology_SR_view_issue = 'View Service Request';
+$s_plugin_Terminology_SR_issues = 'Service Requests';
+$s_plugin_Terminology_SR_report_issue = 'Report an service request';
+$s_plugin_Terminology_SR_update_issue = 'Update an service request';
+$s_plugin_Terminology_SR_monitor_issue = 'Monitor an service request';
+$s_plugin_Terminology_SR_handle_issue = 'Handle an service request';
+$s_plugin_Terminology_SR_move_issue = 'Move an service request';
+$s_plugin_Terminology_SR_delete_issue = 'Delete an service request';
+$s_plugin_Terminology_SR_reopen_issue = 'Reopen an service request';
+$s_plugin_Terminology_SR_view_private_issues = 'View private service request';
+$s_plugin_Terminology_SR_update_readonly_issues = 'Update readonly service request';
+$s_plugin_Terminology_SR_update_issue_status = 'Update service request status';
+$s_plugin_Terminology_SR_show_list_of_users_monitoring_issue = 'Show list of users monitoring service request';
+$s_plugin_Terminology_SR_upload_issue_attachments = 'Upload service request attachments';
+$s_plugin_Terminology_SR_sponsor_issue = 'Sponsor service request';
+$s_plugin_Terminology_SR_assign_sponsored_issue = 'Assign sponsored service request';
+$s_plugin_Terminology_SR_handle_sponsored_issue = 'Handle sponsored service request';
+$s_plugin_Terminology_SR_tag_filter_default = 'Attached Service Requests (%1$s)';
+$s_plugin_Terminology_SR_tag_related_issues = 'Shared Service Requests (%1$s)';
+$s_plugin_Terminology_SR_tag_stats_attached = 'Service Requests attached: %1$s';
+$s_plugin_Terminology_SR_total_time_for_issue = 'Total time for service request = %1$s';
+$s_plugin_Terminology_SR_view_issues_columns_title = 'View Service Requests Columns';
+$s_plugin_Terminology_SR_print_issues_columns_title = 'Print Service Requests Columns';
+$s_plugin_Terminology_SR_status_enum_string = '10:new,50:assigned,60:evaluation completed,70:po done,80:delivered,85:delivery confirmed,90:closed';
+# $s_plugin_Terminology_SR_custom_field_type_enum_string = '0:String,1:Numeric,2:Float,3:Enumeration,4:E-mail,5:Checkbox,6:List,7:Multiselection list,8:Date,9:Radio,100:Table';
+
+# Email notification
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_new = 'The following issue is now in status NEW (again)';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_assigned = 'The following issue has been ASSIGNED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_evaluation_completed = 'The following issue has been EVALUATION COMPLETED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_order_placed = 'The following issue has been PO DONE.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_delivered = 'The following issue has been DELIVERED.';
+$s_plugin_Terminology_SR_email_notification_title_for_status_bug_delivery_confirmed = 'The following issue has been DELIVERED CONFIRMED.';
+
+
+# PR-JTT
+$s_plugin_Terminology_PR_status_enum_string = '50:assigned,53:underway,82:completed,90:closed';
+
+$s_plugin_Terminology_PR_access_levels_enum_string = '10:viewer,25:reporter,40:updater,55:Service Agent,70:Incident Manager,90:administrator';
+$s_plugin_Terminology_PR_summary_updated = 'Job Title Updated';
+$s_plugin_Terminology_PR_summary = 'Job Title';
+$s_plugin_Terminology_PR_must_enter_summary = 'You must enter a Job Title.';
+$s_plugin_Terminology_PR_summary_title = 'Job Title';
+$s_plugin_Terminology_PR_Description_updated = 'Job Description Updated';
+$s_plugin_Terminology_PR_description = 'Job Description';
+$s_plugin_Terminology_PR_must_enter_Description = 'You must enter a Job Description.';
+$s_plugin_Terminology_PR_Description_title = 'Job Description';
+$s_plugin_Terminology_PR_create_child_bug_button = 'Sub Task';
+$s_plugin_Terminology_PR_bug_cloned_to = 'Issue Sub Task';
+$s_plugin_Terminology_PR_assign_to = 'Staff Assigned';
+$s_plugin_Terminology_PR_bug_assign_to_button = 'Staff Assigned:';
+
+
+# move renaming to Change Department
+$s_plugin_Terminology_PR_actiongroup_menu_move = 'Change Department';
+$s_plugin_Terminology_PR_move_bugs = 'Change Department Issues';
+$s_plugin_Terminology_PR_move_bugs_conf_msg = 'Change Department issues to';
+$s_plugin_Terminology_PR_move_group_bugs_button = 'Change Department Issues';
+$s_plugin_Terminology_PR_unreachable = 'You cannot Change Department an issue into this status';
+$s_plugin_Terminology_PR_move_bug_button = 'Change Department';
+$s_plugin_Terminology_PR_move_issue = 'Change Department an issue';
+
+# My Accout => preference renaming some strings to much with status list
+$s_plugin_Terminology_PR_email_on_new = 'E-mail on New';
+$s_plugin_Terminology_PR_email_on_assigned = 'E-mail on Change of Evalution Completed';
+$s_plugin_Terminology_PR_email_on_evaluation_completed = 
+$s_plugin_Terminology_PR_email_on_feedback = 'E-mail on Purchase Order Placed';
+$s_plugin_Terminology_PR_email_on_resolved = 'E-mail on Delivered';
+$s_plugin_Terminology_PR_email_on_closed = 'E-mail on Closed';
+$s_plugin_Terminology_PR_email_on_reopened = 'E-mail on Reopened';
+$s_plugin_Terminology_PR_email_on_bugnote_added = 'E-mail on Note Added';
+$s_plugin_Terminology_PR_email_on_status_change = 'E-mail on Status Change';
+$s_plugin_Terminology_PR_email_on_priority_change = 'E-mail on Priority Change';
+
+# menu_inc.php
+$s_plugin_Terminology_PR_main_link = 'Main';
+$s_plugin_Terminology_PR_view_bugs_link = 'Todo List';
+$s_plugin_Terminology_PR_report_bug_link = 'Report Job';
+
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_new = 'The following job is now in status NEW (again)';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_feedback = 'The following job requires your FEEDBACK.';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_acknowledged = 'The following job has been ACKNOWLEDGED.';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_confirmed = 'The following job has been CONFIRMED.';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_assigned = 'The following job has been ASSIGNED.';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_resolved = 'The following job has been RESOLVED.';
+$s_plugin_Terminology_PR_email_notification_title_for_status_bug_closed = 'The following job has been CLOSED';
+
+$s_plugin_Terminology_PR_email_notification_title_for_action_bug_submitted = 'The following job has been SUBMITTED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_bug_assigned = 'The following job has been ASSIGNED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_bug_reopened = 'The following job has been REOPENED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_bug_deleted = 'The following job has been DELETED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_bug_updated = 'The following job has been UPDATED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_sponsorship_added = 'The following job has been SPONSORED.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_sponsorship_updated = 'A sponsorship of the following job was modified.';
+$s_plugin_Terminology_PR_email_notification_title_for_action_sponsorship_deleted = 'A sponsorship of the following job was withdrawn.';
+
+$s_plugin_Terminology_PR_email_bug = 'job ID';
+
+# account_sponsor_page.php
+$s_plugin_Terminology_PR_no_sponsored = 'No sponsored jobs Assigned To yourself were found.';
+$s_plugin_Terminology_PR_own_sponsored = 'jobs You have Sponsored:';
+$s_plugin_Terminology_PR_jobs_handled = 'Sponsored jobs You Have Been Assigned To:';
+$s_plugin_Terminology_PR_no_own_sponsored = 'You have not sponsored any jobs.';
+
+# bug_action_group_page
+$s_plugin_Terminology_PR_multiple_projects = 'The jobs you have selected are from different projects. The parameters below reflect the settings for all projects. If this is incorrect, please retry your change with a smaller number of jobs selected.';
+
+# bug_assign.php
+$s_plugin_Terminology_PR_bug_assign_msg = 'job has been successfully assigned...';
+
+
+# bug_change_status_page.php
+$s_plugin_Terminology_PR_new_bug_title = 'New job';
+$s_plugin_Terminology_PR_feedback_bug_title = 'Request Feedback on job';
+$s_plugin_Terminology_PR_acknowledged_bug_title = 'Acknowledge job';
+$s_plugin_Terminology_PR_confirmed_bug_title = 'Confirm job';
+$s_plugin_Terminology_PR_assigned_bug_title = 'Assign job';
+$s_plugin_Terminology_PR_new_bug_button = 'New job';
+$s_plugin_Terminology_PR_feedback_bug_button = 'Request Feedback';
+$s_plugin_Terminology_PR_acknowledged_bug_button = 'Acknowledge job';
+$s_plugin_Terminology_PR_confirmed_bug_button = 'Confirm job';
+$s_plugin_Terminology_PR_assigned_bug_button = 'Assign job';
+
+# bug_close.php
+$s_plugin_Terminology_PR_bug_close_msg = 'job has been closed...';
+
+
+# bug_delete.php
+$s_plugin_Terminology_PR_bug_deleted_msg = 'job has been deleted...';
+
+
+# bug_delete_page.php
+$s_plugin_Terminology_PR_delete_bug_sure_msg = 'Are you sure you wish to delete this job?';
+
+
+# bug_reopen.php
+$s_plugin_Terminology_PR_bug_reopened_msg = 'job has been reopened...';
+$s_plugin_Terminology_PR_reopen_add_bugnote_title = 'Add Note Reason For Reopening job';
+$s_plugin_Terminology_PR_bugnote_add_reopen_button = 'Add Note and Reopen job';
+
+
+# bug_resolve_page.php
+$s_plugin_Terminology_PR_resolved_bug_title = 'Resolve job';
+$s_plugin_Terminology_PR_resolved_bug_button = 'Resolve job';
+
+
+# bug_resolve_page2.php
+$s_plugin_Terminology_PR_bug_resolved_msg = 'job has been resolved. Enter note below...';
+$s_plugin_Terminology_PR_resolve_add_bugnote_title = 'Add Note Reason For Resolving job';
+
+
+# bug_reminder_page.php
+$s_plugin_Terminology_PR_reminder_explain = 'This note will be sent to the recipients listed requesting feedback on this job.';
+$s_plugin_Terminology_PR_reminder_monitor = 'These recipients will also begin monitoring the job. They can unsubscribe using the Unmonitor button.';
+$s_plugin_Terminology_PR_reminder_store = 'This note will be stored with the job.';
+
+
+# bug_set_sponsorship.php
+$s_plugin_Terminology_PR_confirm_sponsorship = 'Please confirm you want to sponsor job %1$d for %2$s_plugin_Terminology_PR.';
+
+$s_plugin_Terminology_PR_sticky_job = 'Sticky job';
+
+# bug_update_advanced_page.php
+$s_plugin_Terminology_PR_back_to_bug_link = 'Back To job';
+$s_plugin_Terminology_PR_updating_bug_advanced_title = 'Updating job Information';
+
+# bug_view*
+
+$s_plugin_Terminology_PR_back_to_job = 'Back to job';
+$s_plugin_Terminology_PR_confirm_revision_drop = 'Are you sure you want to drop this job revision?';
+
+
+# bugnote_inc.php
+$s_plugin_Terminology_PR_no_bugnotes_msg = 'There are no notes attached to this job.';
+$s_plugin_Terminology_PR_closed_bug_button = 'Close job';
+
+
+# bug_update_page.php
+$s_plugin_Terminology_PR_updating_bug_simple_title = 'Updating job Information';
+
+
+# login_page.php
+
+$s_plugin_Terminology_PR_login_page_info = 'Welcome to the job Tracker.';
+$s_plugin_Terminology_PR_issue_id = 'Job #';
+
+# manage_config_email_page
+$s_plugin_Terminology_PR_job_reporter = 'User who reported job';
+$s_plugin_Terminology_PR_job_handler = 'User who is handling the job';
+$s_plugin_Terminology_PR_users_added_bugnote = 'Users who added job Notes';
+
+
+# manage_config_workflow_page
+
+$s_plugin_Terminology_PR_unreachable = 'You cannot move an job into this status';
+$s_plugin_Terminology_PR_no_exit = 'You cannot move an job out of this status';
+$s_plugin_Terminology_PR_access_levels = 'Access Levels';
+$s_plugin_Terminology_PR_access_change = 'Minimum Access Level to Change to this Status';
+$s_plugin_Terminology_PR_desc_bug_submit_status = 'Status to which a new job is set';
+$s_plugin_Terminology_PR_desc_bug_reopen_status = 'Status to which reopened jobs are set';
+$s_plugin_Terminology_PR_desc_bug_resolved_status_threshold = 'Status where an job is considered resolved';
+$s_plugin_Terminology_PR_desc_bug_closed_status_threshold = 'Status where an job is considered closed';
+
+# manage_config_work_threshold_page
+$s_plugin_Terminology_PR_assign_job = 'Assign an job';
+$s_plugin_Terminology_PR_allow_close_immediate = 'Allow job to be closed on Resolve';
+$s_plugin_Terminology_PR_allow_reporter_close = 'Allow Reporter to close job';
+$s_plugin_Terminology_PR_allow_reporter_reopen = 'Allow Reporter to re-open job';
+$s_plugin_Terminology_PR_set_status_assigned = 'Set status on assignment of Handler';
+$s_plugin_Terminology_PR_allow_user_edit = 'Allow user to edit their own job notes';
+$s_plugin_Terminology_PR_limit_access = 'Limit reporter\'s access to their own jobs';
+$s_plugin_Terminology_PR_submit_status = 'Status to which a new job is set';
+$s_plugin_Terminology_PR_assigned_status = 'Status to set auto-assigned jobs to';
+$s_plugin_Terminology_PR_resolved_status = 'Status where an job is considered resolved';
+$s_plugin_Terminology_PR_readonly_status = 'Status where an job becomes read only';
+$s_plugin_Terminology_PR_reopen_status = 'Status to which a reopened job is set';
+$s_plugin_Terminology_PR_reopen_resolution = 'Resolution to which a reopened job is set';
+
+
+# manage_proj_category_delete_page.php
+$s_plugin_Terminology_PR_category_delete_sure_msg = 'Are you sure you want to delete this category?<br />Category "%1$s_plugin_Terminology_PR" contains %2$d jobs.';
+
+
+# manage_proj_delete_page.php
+$s_plugin_Terminology_PR_project_delete_msg = 'Are you sure you want to delete this project and all attached job reports?';
+
+
+# my_view_page.php
+
+$s_plugin_Terminology_PR_my_view_title_my_comments = 'jobs I Have Commented On';
+
+# report_add.php
+$s_plugin_Terminology_PR_report_more_bugs = 'Report More jobs';
+
+
+# report_bug_advanced_page.php
+
+$s_plugin_Terminology_PR_check_report_more_bugs = 'check to report more jobs';
+
+
+# summary_page.php
+
+$s_plugin_Terminology_PR_time_stats = 'Time Stats For Resolved jobs (days)';
+$s_plugin_Terminology_PR_longest_open_bug = 'Longest open job';
+
+
+
+# view_all_bug_page.php
+$s_plugin_Terminology_PR_viewing_bugs_title = 'Viewing jobs';
+$s_plugin_Terminology_PR_sticky = 'Show Sticky jobs';
+$s_plugin_Terminology_PR_job_id = 'job #';
+
+
+# view_bug_page.php
+$s_plugin_Terminology_PR_bug_view_title = 'View job Details';
+
+
+# bug_monitor_list_view_inc.php
+$s_plugin_Terminology_PR_no_users_monitoring_bug = 'There are no users monitoring this job.';
+$s_plugin_Terminology_PR_users_monitoring_bug = 'Users monitoring this job';
+
+
+# custom field strings
+$s_plugin_Terminology_PR_custom_field_display_report = 'Display When Reporting jobs';
+$s_plugin_Terminology_PR_custom_field_display_update = 'Display When Updating jobs';
+$s_plugin_Terminology_PR_custom_field_display_resolved = 'Display When Resolving jobs';
+$s_plugin_Terminology_PR_custom_field_display_closed = 'Display When Closing jobs';
+
+# Roadmap
+$s_plugin_Terminology_PR_resolved_progress = '%1$d of %2$d job(s) resolved. Progress (%3$d%%).';
+
+$s_plugin_Terminology_PR_bug = 'job';
+$s_plugin_Terminology_PR_bugs = 'jobs';
+$s_plugin_Terminology_PR_this_bug = 'Current job';
+$s_plugin_Terminology_PR_replace_relationship_sure_msg = 'There is already a relationship between the two jobs. Are you sure you want to replace it?';
+$s_plugin_Terminology_PR_relationship_warning_blocking_bugs_not_resolved = 'Not all the children of this job are yet resolved or closed.';
+$s_plugin_Terminology_PR_relationship_warning_blocking_bugs_not_resolved_2 = '<b>Attention:</b> Not all the children of this job are yet resolved or closed.<br />Before <b>resolving/closing</b> a parent job, all the jobs related as child with this one should be resolved or closed.';
+$s_plugin_Terminology_PR_bug_cloned_to = 'job cloned';
+$s_plugin_Terminology_PR_bug_created_from = 'job generated from';
+
+
+# Relationship Graphs
+$s_plugin_Terminology_PR_view_job = 'View job';
+
+# Pemissions report
+$s_plugin_Terminology_PR_jobs = 'jobs';
+$s_plugin_Terminology_PR_report_job = 'Report an job';
+$s_plugin_Terminology_PR_update_job = 'Update an job';
+$s_plugin_Terminology_PR_monitor_job = 'Monitor an job';
+$s_plugin_Terminology_PR_handle_job = 'Handle an job';
+$s_plugin_Terminology_PR_move_job = 'Move an job';
+$s_plugin_Terminology_PR_delete_job = 'Delete an job';
+$s_plugin_Terminology_PR_reopen_job = 'Reopen an job';
+$s_plugin_Terminology_PR_view_private_jobs = 'View private jobs';
+$s_plugin_Terminology_PR_update_readonly_jobs = 'Update readonly jobs';
+$s_plugin_Terminology_PR_update_job_status = 'Update job status';
+$s_plugin_Terminology_PR_show_list_of_users_monitoring_job = 'Show list of users monitoring job';
+$s_plugin_Terminology_PR_upload_job_attachments = 'Upload job attachments';
+$s_plugin_Terminology_PR_sponsor_job = 'Sponsor job';
+$s_plugin_Terminology_PR_assign_sponsored_job = 'Assign sponsored job';
+$s_plugin_Terminology_PR_handle_sponsored_job = 'Handle sponsored job';
+
+
+# Tagging
+
+$s_plugin_Terminology_PR_tag_filter_default = 'Attached jobs (%1$s_plugin_Terminology_PR)';
+$s_plugin_Terminology_PR_tag_related_jobs = 'Shared jobs (%1$s_plugin_Terminology_PR)';
+$s_plugin_Terminology_PR_tag_stats_attached = 'jobs attached: %1$s_plugin_Terminology_PR';
+# $s_plugin_Terminology_PR_custom_field_type_enum_string = '0:String,1:Numeric,2:Float,3:Enumeration,4:E-mail,5:Checkbox,6:List,7:Multiselection list,8:Date,9:Radio,100:Table';
+
+
+
+# Time Tracking
+$s_plugin_Terminology_PR_total_time_for_job = 'Total time for job = %1$s_plugin_Terminology_PR';
+
+# Renaming some strings for view page.
+$s_plugin_Terminology_PR_viewing_bugs_title = 'Viewing Jobs';
+
+$s_plugin_Terminology_PR_bug_history = 'Job History';
+
+$s_plugin_Terminology_PR_bug_view_title = 'View Job Details';
+
+# manage columns page
+$s_plugin_Terminology_PR_view_jobs_columns_title = 'View jobs Columns';
+$s_plugin_Terminology_PR_print_jobs_columns_title = 'Print jobs Columns';
+
+
+ 
+
+
+#ICT Etiopia GTZ Service
+# $s_plugin_Terminology_ICT_custom_field_type_enum_string = '0:String,1:Numeric,2:Float,3:Enumeration,4:E-mail,5:Checkbox,6:List,7:Multiselection list,8:Date,9:Radio,100:Table';
+
+$s_plugin_Terminology_ICT_access_levels_enum_string = '10:viewer,25:reporter,40:updater,55:Service Agent,70:Incident Manager,90:administrator';
+$s_plugin_Terminology_ICT_priority_enum_string = '10:none,20:low,30:Field - Single Employee (72 Hours),40:Field Office - Employee (24 Hours),50:Addis Ababa - Employee (4 Hours),60:Addis Ababa - Management (1 Hour)';
+$s_plugin_Terminology_ICT_severity_enum_string = '10:Feature Change,20:trivial,30:text,40:tweak,50:Minor Obstacle,60:Major Obstacle,70:crash,80:Workflow Block';
+$s_plugin_Terminology_ICT_reproducibility_enum_string = '10:always,30:regular,50:irregular,70:have not tried,90:unable to reproduce,100:N/A';
+
+$s_plugin_Terminology_ICT_email_priority = 'Client Group';
+$s_plugin_Terminology_ICT_email_on_priority_change = 'E-mail on Client Group Change';
+$s_plugin_Terminology_ICT_priority = 'Client Group';
